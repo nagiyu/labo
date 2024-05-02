@@ -1,0 +1,18 @@
+{
+    "folders": [
+        {
+            "path": "./"
+        }
+    ],
+    "extensions": {
+        "recommendations": [
+            "donjayamanne.githistory",
+            "eamodio.gitlens",
+            "oderwat.indent-rainbow",
+            "github.vscode-pull-request-github",
+        ]
+    },
+    "settings": {
+        "editor.renderWhitespace": "boundary"
+    },
+}
