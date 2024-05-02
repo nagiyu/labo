@@ -17,8 +17,8 @@ jobs:
       with:
         dotnet-version: 7.0.x
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release Labo/Labo.csproj
+    - name: Publish with dotnet
+      run: dotnet publish --configuration Release Labo/Labo.csproj
 
     - name: Remove all files in target path
       uses: appleboy/ssh-action@master
@@ -39,7 +39,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "*"
+        source: Labo/bin/Release/net7.0/*
         target: ${{ secrets.TARGET_PATH }}
 
     - name: Deploy with ssh
