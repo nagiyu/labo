@@ -21,7 +21,20 @@ jobs:
       run: dotnet build --configuration Release Labo/Labo.csproj
 
     - name: Copy build artifact
-      run: cp -r Labo/bin/Release/net7.0/* ${{ runner.temp }}
+      run: |
+        cp -r Labo/bin/Release/net7.0/* ${{ runner.temp }}
+        ls ${{ runner.temp }}
+
+    - name: Remove all files in target path
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        script: |
+          rm -rf ${{ secrets.TARGET_PATH }}/*
 
     - name: Upload artifact to server
       uses: appleboy/scp-action@master
