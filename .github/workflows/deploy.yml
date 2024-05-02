@@ -31,6 +31,10 @@ jobs:
         name: Labo
         path: ${{ runner.temp }}/Labo.zip
 
+    - name: Get Artifact URL
+      id: get_artifact_url
+      run: echo "::set-output name=url::$(echo ${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}/artifacts)"
+
     - name: Deploy with ssh
       uses: appleboy/ssh-action@master
       with:
