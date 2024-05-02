@@ -25,6 +25,12 @@ jobs:
         cd Labo/bin/Release/net7.0
         7z a -tzip ${{ runner.temp }}/Labo.zip *
 
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Labo
+        path: ${{ runner.temp }}/Labo.zip
+
     - name: Deploy with ssh
       uses: appleboy/ssh-action@master
       with:
