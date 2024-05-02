@@ -25,25 +25,16 @@ jobs:
         cd Labo/bin/Release/net7.0
         7z a -tzip ${{ runner.temp }}/Labo.zip *
 
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v2
-      id: upload_artifact
+    - name: Upload artifact to server
+      uses: appleboy/scp-action@master
       with:
-        name: Labo
-        path: ${{ runner.temp }}/Labo.zip
-
-    - name: Get Artifact URL
-      id: get_artifact_url
-      run: echo "::set-output name=url::$(echo ${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}/artifacts)"
-    
-    - uses: actions/download-artifact@v3
-      id: download_artifact
-      with:
-        name: Labo
-        path: ${{ runner.temp }}
-
-    - name: 'Echo download path'
-      run: echo ${{steps.download_artifact.outputs.download-path}}
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        source: ${{ runner.temp }}/Labo.zip
+        target: /home/nagiyu/tmp
 
     - name: Deploy with ssh
       uses: appleboy/ssh-action@master
