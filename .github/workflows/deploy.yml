@@ -20,11 +20,6 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release Labo/Labo.csproj
 
-    - name: Copy build artifact
-      run: |
-        cp -r Labo/bin/Release/net7.0/* ${{ runner.temp }}
-        ls ${{ runner.temp }}
-
     - name: Remove all files in target path
       uses: appleboy/ssh-action@master
       with:
@@ -44,7 +39,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: ${{ runner.temp }}/*
+        source: Labo/bin/Release/net7.0/*
         target: ${{ secrets.TARGET_PATH }}
 
     - name: Deploy with ssh
