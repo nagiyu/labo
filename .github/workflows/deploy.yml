@@ -22,7 +22,7 @@ jobs:
 
     - name: Archive build artifact
       run: |
-        cd bin/Release/net7.0
+        cd Labo/bin/Release/net7.0
         7z a -tzip ${{ runner.temp }}/Labo.zip *
 
     - name: Deploy with ssh
