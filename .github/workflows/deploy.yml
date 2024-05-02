@@ -20,10 +20,8 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release Labo/Labo.csproj
 
-    - name: Archive build artifact
-      run: |
-        cd Labo/bin/Release/net7.0
-        7z a -tzip ${{ runner.temp }}/Labo.zip *
+    - name: Copy build artifact
+      run: cp -r Labo/bin/Release/net7.0/* ${{ runner.temp }}
 
     - name: Upload artifact to server
       uses: appleboy/scp-action@master
@@ -33,8 +31,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: Labo/bin/Release/net7.0/*
-        target: /home/nagiyu/tmp
+        source: ${{ runner.temp }}/*
+        target: ${{ secrets.TARGET_PATH }}
 
     - name: Deploy with ssh
       uses: appleboy/ssh-action@master
@@ -45,5 +43,5 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
-          cd /home/nagiyu/tmp
+          cd ${{ secrets.TARGET_PATH }}
           echo "Hello World" >> hello.log
