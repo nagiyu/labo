@@ -33,7 +33,11 @@ jobs:
 
     - name: Get Artifact URL
       id: get_artifact_url
-      run: echo "::set-output name=url::$(echo ${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}/artifacts)"
+      run: echo ${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}/artifacts"
+
+    - name: Get Artifact ID
+      id: get_artifact_id
+      run: echo ${{ steps.upload_artifact.outputs.artifact_id }}"
 
     - name: Deploy with ssh
       uses: appleboy/ssh-action@master
