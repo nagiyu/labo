@@ -18,7 +18,12 @@ jobs:
         dotnet-version: 7.0.x
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release Labo/Labo.csproj
+
+    - name: Archive build artifact
+      run: |
+        cd bin/Release/net7.0
+        7z a -tzip ${{ runner.temp }}/Labo.zip *
 
     - name: Deploy with ssh
       uses: appleboy/ssh-action@master
@@ -30,4 +35,4 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           cd /home/nagiyu/tmp
-          echo "Hello World" > hello.log
+          echo "Hello World" >> hello.log
