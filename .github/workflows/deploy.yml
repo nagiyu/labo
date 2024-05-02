@@ -33,7 +33,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: ${{ runner.temp }}/Labo.zip
+        source: Labo/bin/Release/net7.0/*
         target: /home/nagiyu/tmp
 
     - name: Deploy with ssh
