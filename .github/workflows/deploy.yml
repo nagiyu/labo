@@ -39,8 +39,8 @@ jobs:
     - uses: actions/download-artifact@v3
       id: download_artifact
       with:
-        name: 'my-artifact'
-        path: path/to/artifacts
+        name: Labo
+        path: ${{ runner.temp }}
 
     - name: 'Echo download path'
       run: echo ${{steps.download_artifact.outputs.download-path}}
