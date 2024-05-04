@@ -1,3 +1,5 @@
+using Labo.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,5 +25,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "home",
+    pattern: "/",
+    defaults: new { controller = "Home", action = "Index" });
 
 app.Run();
