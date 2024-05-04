@@ -52,4 +52,4 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           cd ${{ secrets.TARGET_PATH }}
-          echo "Hello World" >> hello.log
+          ./test.sh

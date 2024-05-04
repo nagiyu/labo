@@ -1,0 +1,13 @@
+SetEnvIf Host "^labo.nagiyu.com$" host
+order deny,allow
+deny from all
+allow from env=host
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} ^/index.html$
+    RewriteRule .* http://localhost:5000/ [P,L]
+
+    RewriteRule ^(.*)$ http://localhost:5000/$1 [P,L]
+</IfModule>
